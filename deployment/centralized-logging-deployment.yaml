@@ -1,10 +1,13 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: wso2-elastic-search
 spec:
   replicas: 1
   minReadySeconds: 30
+  selector:
+    matchLabels:
+      deployment: wso2-elastic-search
   template:
     metadata:
       labels:
@@ -78,13 +81,16 @@ spec:
       protocol: TCP
       port: 9300
 ---
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: wso2-kibana
 spec:
   replicas: 1
   minReadySeconds: 30
+  selector:
+    matchLabels:
+      deployment: wso2-kibana
   template:
     metadata:
       labels:

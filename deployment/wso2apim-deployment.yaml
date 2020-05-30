@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: wso2apim
@@ -10,6 +10,9 @@ spec:
       maxSurge: 1
       maxUnavailable: 0
     type: RollingUpdate
+  selector:
+    matchLabels:
+      deployment: wso2apim  
   template:
     metadata:
       labels:
@@ -71,7 +74,7 @@ spec:
         - name: shared-logs
           mountPath: /home/wso2carbon/wso2am-2.6.0/repository/logs/
       - name: logstash
-        image: maanadev/logstash:6.5.3-custom
+        image: avantaditya/logstash:6.5.3-custom
         volumeMounts:
         - name: shared-logs
           mountPath: /usr/share/logstash/mylogs/
